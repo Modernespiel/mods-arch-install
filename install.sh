@@ -1,9 +1,9 @@
 #!bin/bash
-# Declaring some variables
+#Declaring some variables
 #Please enter the hostname, username and Timezone you would like to use for the install before using this script.
-hostname = 'host'      #The Host Name that will be used in this script
-username = 'user'   #The name of the user that will be added (Please use only lowercase letters)
-timezone = 'America/Toronto'    #The Timezone that will be set
+varhostname = 'host'                #The Host Name that will be used in this script
+username = 'user'                   #The name of the user that will be added (Please use only lowercase letters)
+timezone = 'America/Toronto'        #The Timezone that will be set
 
 #Netcheck
 echo "You must be connected to the Internet."
@@ -83,8 +83,8 @@ local-gen
 echo "LANG=en_US.UTF-8 >> /etc/locale.conf"
 
 #Setting hostname
-echo $hostname >> /etc/hostname
-echo "127.0.1.1 $hostname.localdomain   $hostname" >> /etc/hosts
+echo $varhostname >> /etc/hostname
+echo "127.0.1.1 $varhostname.localdomain   $varhostname" >> /etc/hosts
 
 #Generating intramfs
 mkinitcpio -P
