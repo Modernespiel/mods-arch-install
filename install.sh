@@ -1,8 +1,8 @@
 #!bin/bash
 #Variables
-hostname = 'host'
-timezone = 'America/Toronto'
-username = 'user'
+hostname = 'host'      #The Host Name that will be used in this script
+timezone = 'America/Toronto'    #The Timezone that will be set
+username = 'user'   #The name of the user that will be added (Please use only lowercase letters)
 
 #Netcheck
 echo "You must be connected to the Internet."
@@ -75,10 +75,10 @@ echo "127.0.1.1 $hostname.localdomain   $hostname" >> /etc/hosts
 mkinitcpio -P
 
 #Installing some packages
-pacman -Syu
-pacman -S grub os-prober efibootmgr dosfstools sudo cinnamon nemo-fileroller bash-completion xorg-server xorg-xinit xorg-utils xorg-server-utils mesa gdm net-tools networkmanager network-manager-applet
-pacman -S pulseaudo pulseaudio-alsa pavucontrol gnome-terminal firefox flashplugin vlc unzip unrar p7zip pidgin smplayer deluge audacious qmmp gimp xfburn gedit nano gnome-gnome-system-monitor libgtop
-pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins
+pacman -Syu                                                                                                                                                                                                 #Updating Repositories
+pacman -S grub os-prober efibootmgr dosfstools sudo cinnamon nemo-fileroller bash-completion xorg-server xorg-xinit xorg-utils xorg-server-utils mesa gdm net-tools networkmanager network-manager-applet   #Grub, Cinnamon, and Xorg
+pacman -S pulseaudo pulseaudio-alsa pavucontrol gnome-terminal firefox flashplugin vlc unzip unrar p7zip pidgin smplayer deluge audacious qmmp gimp xfburn gedit nano gnome-gnome-system-monitor libgtop    #Some applications for Cinnamon
+pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins                                                             #Codecs
 
 #Set Rootpassword
 echo "Please enter a password for the root user..."
@@ -86,9 +86,9 @@ passwd
 
 #Creating a new user
 useradd -aG wheel,input,storage,video,audio $username
-sed --in-place 's/^#\s*\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers
+sed --in-place 's/^#\s*\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers    #Changing Sudoers File
 echo "Set password for $username"
-passwd $username
+passwd $username    #Set User Password
 
 systemctl enable NetworkManager
 systemctl start NetworkManager
