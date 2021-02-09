@@ -20,6 +20,7 @@ This is due to how the script is currently written (Installing Grub for efix86_6
 - `pacman -Sy git`
 - `git clone git://github.com/Modernespiel/mods-arch-install`
 - `cd mods-arch-install`
+- `chmod +x install.sh`
 - `./install.sh`
 
 <p>After that follow the on-screen prompts and the script will do the rest.</p>
