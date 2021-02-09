@@ -73,10 +73,6 @@ arch-chroot /mnt
 ln -sf /usr/share/zoneinfo$timezone /etc/localtime
 hwclock --systohc
 
-#Install grub
-grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=arch
-grub-mkconfig -o /boot/grub/grub.cfg
-
 #Setting locale to en_US.UTF-8
 sed -i '/en_US.UTF-8 UTF-8/s/^#//g' /etc/locale.gen
 local-gen
@@ -92,6 +88,12 @@ mkinitcpio -P
 #Installing some packages
 pacman -Syu                                                                                                                                                                                                 #Updating Repositories
 pacman -S grub os-prober efibootmgr dosfstools sudo cinnamon nemo-fileroller bash-completion xorg-server xorg-xinit xorg-utils xorg-server-utils mesa gdm net-tools networkmanager network-manager-applet   #Grub, Cinnamon, and Xorg
+
+#Install grub
+grub-install --target=x86_64-efi --efi-directory=/boot/EFI --bootloader-id=arch
+grub-mkconfig -o /boot/grub/grub.cfg
+
+#Some more packages
 pacman -S pulseaudo pulseaudio-alsa pavucontrol gnome-terminal firefox flashplugin vlc unzip unrar p7zip pidgin smplayer deluge audacious qmmp gimp xfburn gedit nano gnome-gnome-system-monitor libgtop    #Some applications for Cinnamon
 pacman -S a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore gstreamer0.10-plugins                                                             #Codecs
 
