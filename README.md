@@ -15,9 +15,8 @@ This is due to how the script is currently written (Installing Grub for efix86_6
 
 ## Using The Script
 <p>On boot of your image run the following commands in order:</p>
-
-- `pacman -Syu`
-- `pacman -S git`
+- `mount -o remount,size=2G /run/archiso/cowspace`
+- `pacman -Sy git`
 - `git clone git://github.com/Modernespiel/mods-arch-install`
 - `cd mods-arch-install`
 - `./install.sh`
