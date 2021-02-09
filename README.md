@@ -3,7 +3,7 @@
 
 <p>An install script for Arch Linux <br>
 Allows for Automatic or Manual Partitioning and Declaring Variables such as Hostname, Timezone, and Username to be used. <br>
-There are better scripts out there (IE. AUI), this is only a personal script to setup an arch install how I like it.
+  There are better scripts out there (IE. <a href=https://github.com/helmuthdu/aui>AUI</a>), this is only a personal script to setup an arch install how I like it.
 </p>
 
 ## Requirements:
