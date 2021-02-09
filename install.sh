@@ -1,8 +1,9 @@
 #!bin/bash
-#Variables
+# Declaring some variables
+#Please enter the hostname, username and Timezone you would like to use for the install before using this script.
 hostname = 'host'      #The Host Name that will be used in this script
-timezone = 'America/Toronto'    #The Timezone that will be set
 username = 'user'   #The name of the user that will be added (Please use only lowercase letters)
+timezone = 'America/Toronto'    #The Timezone that will be set
 
 #Netcheck
 echo "You must be connected to the Internet."
@@ -13,23 +14,37 @@ then
     exit
 fi
 
-#Partitioning (Manual)
-
-function partitioning{
-    clear_console
-    echo "You will have to create a partition table."
-    echo "The first must be at least 512Mib as EFI"
-    echo "The second should be at least 2GiB as Linux Swap"
-    echo "The last should be the rest of your disc as Linux File System"
-    read -p 'Press Y if you understand: ' psa
-    if ! [ $psa = 'y' ] && ! [ $psa = 'Y' ] 
-    then 
-        partitioning
-    else
-        cfdisk /dev/sda
-    fi
-    }
-
+#Partitioning Auto or Manual
+function partab{
+    read -p 'Would you like to use automatic partitioning [A], or Manually yourself[B]?' partsel
+        if [ $partsel = 'a' ] || [ $partsel = 'A' ]
+            then
+                #Partitioning (Automatic)
+            else
+                if [ $partsel = 'b' ] || [ $partsel = 'B' ]
+                    then
+                        #Partitioning (Manual)
+                        function partitioningm{
+                            clear_console
+                            echo "You will have to create a partition table."
+                            echo "The first must be at least 512Mib as EFI"
+                            echo "The second should be at least 2GiB as Linux Swap"
+                            echo "The last should be the rest of your disc as Linux File System"
+                            read -p 'Press Y if you understand: ' psa
+                            if ! [ $psa = 'y' ] && ! [ $psa = 'Y' ] 
+                            then 
+                                partitioningm
+                            else
+                                cfdisk /dev/sda
+                            fi
+                }
+                else
+                    clear_console
+                    echo "Please select enter a valid selection [A/B]"
+                    partab
+                fi
+        fi
+}
 #Formating created Partitions
 mkfs.ext /dev/sda3
 mkfs.fat -F32 /dev/sda1
@@ -90,10 +105,13 @@ sed --in-place 's/^#\s*\s\+ALL=(ALL)\s\+NOPASSWD:\s\+ALL\)/\1/' /etc/sudoers    
 echo "Set password for $username"
 passwd $username    #Set User Password
 
+#Enabling and Starting some Services
 systemctl enable NetworkManager
 systemctl start NetworkManager
 
 systemctl enable gdm
 systemctl start gdm
 
-
+#End
+clear_console
+echo "Finished install please reboot..."
